@@ -1,6 +1,7 @@
 //jshint esversion:6
 const express = require("express");
 const mongoose = require("mongoose");
+const encrypt = require("mongoose-encryption");
 const ejs = require("ejs");
 
 const app = express();
@@ -17,10 +18,13 @@ async function main() {
     await mongoose.connect('mongodb://127.0.0.1:27017/userDB');
 }
 
-const userSchema = {
+const userSchema = new mongoose.Schema ({
     email: String,
     password: String
-}
+});
+
+const secret = "mikhailBulgakov"
+userSchema.plugin(encrypt,{ secret: secret, encryptedFields: ["password"]});
 
 const User = new mongoose.model("User", userSchema);
 
