@@ -106,6 +106,11 @@ app.post("/login", function(req,res) {
     })
 })
 
+app.get("/logout", function(req,res) {
+    req.logout();
+    res.redirect("/");
+})
+
 app.listen(3000, function() {
     console.log("Sever is running; listening to port 3000")
 })
